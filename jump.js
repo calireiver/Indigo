@@ -6,6 +6,6 @@ document.addEventListener('keyup', event => {
 
 function jump()
 {
-    character.animate({ top: "+=50px" }, "normal");
+    character.animate({ top: "-=50px" }, "normal");
     character.animate({ top: "+=50px" }, "normal");
 }
