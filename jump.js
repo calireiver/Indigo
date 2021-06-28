@@ -1,11 +1,11 @@
 document.addEventListener('keyup', event => {
-    if (event.key === 'Space') {
+    if (event.code === 'Space') {
         jump();
     }
 })
 
 function jump()
 {
-    character.animate({ top: "-=50px" }, "normal");
-    character.animate({ top: "+=50px" }, "normal");
+    character.animate({ top: "-=200px" }, "normal");
+    character.animate({ top: "+=200px" }, "normal");
 }
