@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <!-- Title -->
+        <h1></h1>
+        <!-- Timer -->
+        <div id="timer"></div>
+        <!-- GAME -->
+        <div id="gameDiv">
+            <!-- character -->
+            <div id="Mike"></div>
+            <div id="bug"></div>
+        </div>
+        <!-- Temporary Styling -->
+        <style>
+            #gameDiv {
+                border-color: black;
+                border-style: solid;
+                width: 800px;
+                height: 250px;
+                background-color: white;
+            }
+            #Mike {
+                width: 50px;
+                height: 50px;
+                background-color: black;
+                margin: auto;
+            }
+
+            #bug {
+                position: relative;
+                float: right;
+                width: 50px;
+                height: 50px;
+                background-color: indigo;
+                /* edit this margin for now to test collision should console log end game while overlapping with player square*/
+                margin-top: -10px;
+            }
+        </style>
+    </body>
+
+    <script src="collide.js"></script>
+</html>
