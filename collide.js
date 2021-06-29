@@ -31,6 +31,20 @@ var bugCollide = {
 };
 
 
+//Jump function is called when player presses space
+var mikeJump = document.addEventListener('keyup', event => {
+    if (event.code === 'Space') {
+        jump();
+    }
+})
+
+function jump()
+{
+    mike.animate({ top: "-=200px" }, "normal");
+    mike.animate({ top: "+=200px" }, "normal");
+}
+
+
 //calls collisionCheck every 50 milliseconds
 setInterval(collisionCheck, 50);
 
