@@ -1,0 +1,38 @@
+h1 {
+    text-align: center;
+    font-size: 45px;
+}
+p {
+    font-size: 25px;
+    text-align: center;
+}
+
+
+
+.game {
+    width: 800px;
+    height: 300px;
+    border: 1px solid black;
+    margin: auto;
+    background-color: gray;
+}
+
+#MrMike {
+    width:60px;
+    height: 60px;
+    background-color: red;
+
+    position:relative;
+    top: 240px;
+    left: 20px;
+}
+
+#Bugs {
+    width: 60px;
+    height: 60px;
+    background-color: blue;
+    
+    position:relative;
+    left: 700px;
+    top: 240px;
+}
