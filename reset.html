@@ -2,16 +2,19 @@
 
 <script>
 
+var mySound = new sound("Game Over 2.mp3")
+
 function reset() {
     score = 0;
-    gameSpeed = 0;
+    speed = 0;
+    //reset starting position of mr.mike
+    bug.remove();
 }
     
-collisionCheck = true
-    if (collisionCheck == true) {
+    if (isColliding == true) {
         alert("Game Over. Your score was " +  score)
         reset();
-
+        mySound.play();
     }
 
 </script>
