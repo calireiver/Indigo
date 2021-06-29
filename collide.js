@@ -3,6 +3,17 @@ var isColliding = false;
 //bug speed
 var speed = 0.5;
 
+var score = 0;
+
+var highscore = JSON.parse(localStorage.getItem("highscore"));
+if (typeof(highscore) == "number") {
+    //nothing
+} else {
+    highscore = 0;
+}
+
+console.log(highscore);
+
 //DOM CAlls
 var mike = document.getElementById("Mike");
 var bug = document.getElementById("bug");
@@ -86,4 +97,10 @@ function collisionCheck() {
 //if you collide
 function endGame() {
     console.log("You Died");
+    //highscore
+    if (score > highscore) {
+    JSON.stringify(localStorage.setItem("highscore", score));
+    highscore = JSON.parse(localStorage.getItem("highscore"));
+    console.log(highscore);
+    }
 }
