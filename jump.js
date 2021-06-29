@@ -1,11 +1,18 @@
-document.addEventListener('keyup', event => {
-    if (event.code === 'Space') {
+var mikeSurrounding = mike.style.bottom;
+
+document.addEventListener("keyup", function (e) {
+
+    if (e.code === 'Space') {
         jump();
     }
-})
 
-function jump()
-{
-    character.animate({ top: "-=200px" }, "normal");
-    character.animate({ top: "+=200px" }, "normal");
-}
+    function jump()
+    {
+        console.log("you jumped");
+        mikeSurrounding += 200;
+        mike.style.bottom = mikeSurrounding + "px";
+        mikeSurrounding -= 200;
+        mike.style.bottom = mikeSurrounding + "px";
+        mikeSurrounding=0;
+    }
+});
