@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+body {
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h1 {
+    font-size: 4vw;
+}
+p {
+    font-size: 2vw;
+}
+
+#gameDiv {
+    border-color: black;
+    border-style: solid;
+    width: 800px;
+    height: 250px;
+    background-color: white;
+    margin: auto;
+}
+#Mike {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    margin: auto;
+/* makes sure mikes character stays on the left side */
+    float: left;
+/* places mikes character at the bottom of the box */
+    margin-top: 200px;
+    position: relative;
+}
+
+#bug {
+    position: relative;
+    float: right;
+    width: 50px;
+    height: 50px;
+    background-color: indigo;
+    /* edit this margin for now to test collision should console log end game while overlapping with player square*/
+    margin-top: 200px;
+}

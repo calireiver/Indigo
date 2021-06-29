@@ -1,3 +1,29 @@
+/////////BACKGROUND MUSIC/////////////
+var lastSong = null;
+    var selection = null;
+    var playlist = ["Background Music 1.mp3", "Background Music 2.mp3", "Background Music 3.mp3", "Background Music 4.mp3"]; // List of songs
+    var player = document.getElementById("audioplayer"); // Get audio element
+    player.autoplay=true;
+    player.addEventListener("ended", selectRandom); // Run function when the song ends
+
+    function selectRandom(){
+        while(selection == lastSong){ // Repeat until a different song is selected
+            selection = Math.floor(Math.random() * playlist.length);
+        }
+        lastSong = selection; // Remember the last song
+        player.src = playlist[selection]; // Tell HTML the location of the new song
+    }
+
+    selectRandom(); // Select initial song
+    player.play(); // Start song
+
+/////////////////////////////////////////
+
+
+
+
+
+
 //this variable turns on, on collision
 var isColliding = false;
 //bug speed
@@ -40,6 +66,20 @@ var bugCollide = {
     top: bug.getBoundingClientRect().top,
     bottom: bug.getBoundingClientRect().bottom,
 };
+
+
+//Jump function is called when player presses space
+var mikeJump = document.addEventListener('keyup', event => {
+    if (event.code === 'Space') {
+        jump();
+    }
+})
+
+function jump()
+{
+    mike.animate({ top: "-=200px" }, "normal");
+    mike.animate({ top: "+=200px" }, "normal");
+}
 
 
 //calls collisionCheck every 50 milliseconds
