@@ -36,12 +36,15 @@ p {
     background-size: 50px 50px;
 }
 
-#bug {
+.bug {
     position: relative;
     float: right;
     width: 50px;
     height: 50px;
-    background-color: indigo;
+    background-color: transparent;
     /* edit this margin for now to test collision should console log end game while overlapping with player square*/
     margin-top: 200px;
+    background-image: url("bug1.png");
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
 }
