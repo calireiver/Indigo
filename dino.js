@@ -16,7 +16,6 @@ var lastSong = null;
 
     selectRandom(); // Select initial song
     player.play(); // Start song
-
 /////////////////////////////////////////
 
 
@@ -27,9 +26,14 @@ var lastSong = null;
 //this variable turns on, on collision
 var isColliding = false;
 //bug speed
-var speed = 0.5;
+var startSpeed = 0.5;
+var speed = startSpeed;
 
 var score = 0;
+
+var bugCount = 0;
+
+var setHeight = false;
 
 var highscore = JSON.parse(localStorage.getItem("highscore"));
 if (typeof(highscore) == "number") {
@@ -81,16 +85,23 @@ var isJumping = false;
 function jump()
 {
     if (isJumping == false) {
-        isJumping = true;
-        $("#Mike").animate({ top: "-=150px" }, "slow");
-        setTimeout(function () {
-        $("#Mike").animate({ top: "+=150px" }, "slow");
-        }, 500);
-        setTimeout(function () {
-            isJumping = false;
-        }, 1100);
+        if (setHeight == true) {
+            return;
+        } else {
+            isJumping = true;
+            $("#Mike").animate({ marginTop: "-=150px" }, "slow");
+                setTimeout(function () {
+                    if (setHeight == true) {
+                        return;
+                    }
+                $("#Mike").animate({ marginTop: "+=150px" }, "slow");
+                }, 500);
+            }
+            setTimeout(function () {
+                isJumping = false;
+            }, 1100);
+        }   
     }
-}
 
 
 //calls collisionCheck every 50 milliseconds
@@ -115,6 +126,7 @@ function bugMove() {
     //when bug gets to end of game
     if (bugCollide.left <= gameEdge) {
         bug.remove();
+        addBug();
     }
 }
 
@@ -129,6 +141,30 @@ function collisionCheck() {
     if (isColliding == true) {
         endGame();
     }
+}
+
+function addBug() {
+    speed += 0.02;
+    bugCount++;
+    var x = "<div class='bug' id='bug'></div>";
+    gameDiv.innerHTML += x;
+    console.log(bug);
+    bugCollide = {
+        left: bug.getBoundingClientRect().left,
+        right: bug.getBoundingClientRect().right,
+        top: bug.getBoundingClientRect().top,
+        bottom: bug.getBoundingClientRect().bottom,
+    };
+    bug = document.getElementById("bug");
+    //bug.style.left = (-1 * bugLocation) + "px";
+    bugLocation = 0;
+    setHeight = true;
+    $("#Mike").animate({ marginTop: "200px" }, "slow", function() {
+        setHeight = false;
+    });
+    var bugChoice = 1 + (Math.floor(Math.random() * 5));
+    console.log(bugChoice);
+    bug.style.backgroundImage = "url(bug" + bugChoice + ".png)";
 }
 
 //if you collide
