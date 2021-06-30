@@ -72,13 +72,24 @@ var bugCollide = {
 var mikeJump = document.addEventListener('keyup', event => {
     if (event.code === 'Space') {
         jump();
+        console.log("hello");
     }
 })
 
+var isJumping = false;
+
 function jump()
 {
-    mike.animate({ top: "-=200px" }, "normal");
-    mike.animate({ top: "+=200px" }, "normal");
+    if (isJumping == false) {
+        isJumping = true;
+        $("#Mike").animate({ top: "-=150px" }, "slow");
+        setTimeout(function () {
+        $("#Mike").animate({ top: "+=150px" }, "slow");
+        }, 500);
+        setTimeout(function () {
+            isJumping = false;
+        }, 1100);
+    }
 }
 
 
@@ -109,7 +120,7 @@ function bugMove() {
 
 //checks if there is a collision
 function collisionCheck() {
-    if (bugCollide.left <= mikeCollide.right && bugCollide.right >= mikeCollide.left && bugCollide.top <= mikeCollide.bottom && bugCollide.bottom >= mikeCollide.top) {
+    if (bugCollide.left <= mikeCollide.right && bugCollide.right >= mikeCollide.left && isJumping == false) {
         isColliding = true;
     } else {
         isColliding = false;
