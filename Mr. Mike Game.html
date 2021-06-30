@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <h1 style="text-align:center; font-size:3vw">Mr. Mike vs Bugs</h1>
+        <script src="myscripts.js"></script>
+    </head>
+
+    <body>
+
+    <div class="MrMike">
+        <img src= "bug.jpg" alt="bug" width="355" align="right">
+        <h2 style="font-size:2vw">How to Play:</h2>
+        <p style="font-size:2vw">The pixelated man depicted to the right is Mr. Mike. He will stand in the same place throughout the whole game. The player should click the space bar in order to help Mr. Mike jump over the bugs that are running towards him. If a bug collides into Mr. Mike, the player must start over. Try to score as many points as possible.</p>
+    </div>
+      <audio id="audioplayer" autoplay> <!-- Remove the "Controls" Attribute if you don't want the visual controls -->
+</audio>
+
+<script>
+    var lastSong = null;
+    var selection = null;
+    var playlist = ["Background Music 1.mp3", "Background Music 2.mp3", "Background Music 3.mp3", "Background Music 4.mp3"]; // List of songs
+    var player = document.getElementById("audioplayer"); // Get audio element
+    player.autoplay=true;
+    player.addEventListener("ended", selectRandom); // Run function when the song ends
+
+    function selectRandom(){
+        while(selection == lastSong){ // Repeat until a different song is selected
+            selection = Math.floor(Math.random() * playlist.length);
+        }
+        lastSong = selection; // Remember the last song
+        player.src = playlist[selection]; // Tell HTML the location of the new song
+    }
+
+    selectRandom(); // Select initial song
+    player.play(); // Start song
+</script>
+    </body>
+
+</html>
