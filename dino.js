@@ -91,6 +91,7 @@ var mikeJump = document.addEventListener('keyup', event => {
 })
 
 var isJumping = false;
+var jumpSound = new Audio("jumpSound1.mp3");
 
 function jump()
 {
@@ -99,6 +100,7 @@ function jump()
             if (setHeight == true) {
                 return;
             } else {
+                jumpSound.play();
                 isJumping = true;
                 $("#Mike").animate({ marginTop: "-=150px" }, "slow");
                     setTimeout(function () {
@@ -141,7 +143,9 @@ function bugMove() {
 }
 
 var mySound = new Audio("Game Over 2.mp3")
+mySound.loop = false;
 
+var endSound = 0;
 //checks if there is a collision
 function collisionCheck() {
     if (bugCollide.left <= mikeCollide.right && bugCollide.right >= mikeCollide.left && isJumping == false) {
@@ -151,7 +155,10 @@ function collisionCheck() {
     }
     //call function reset on collision
     if (isColliding == true) {
-        mySound.play();
+        if (endSound == 0) {
+            mySound.play();
+            endSound++;
+        }
         clearInterval(myTimer);
         clearInterval(bugTime);
         gameOver = true;
