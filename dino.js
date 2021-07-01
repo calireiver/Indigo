@@ -156,6 +156,11 @@ function collisionCheck() {
         clearInterval(bugTime);
         gameOver = true;
         document.getElementById("restartDiv").style.display = "block";
+        if (score > highscore) {
+            JSON.stringify(localStorage.setItem("highscore", score));
+            highscore = JSON.parse(localStorage.getItem("highscore"));
+            document.getElementById("highscore").innerHTML = highscore;
+        }
     }
 }
 
@@ -183,13 +188,6 @@ function addBug() {
 
 //if you collide
 function reset() {
-    console.log("You Died");
-    //highscore
-    if (score > highscore) {
-        JSON.stringify(localStorage.setItem("highscore", score));
-        highscore = JSON.parse(localStorage.getItem("highscore"));
-        document.getElementById("highscore").innerHTML = highscore;
-    }
     score = 0;
     speed = startSpeed;
     bug.remove();
