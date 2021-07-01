@@ -1,4 +1,4 @@
-/////////BACKGROUND MUSIC/////////////
+/////////BACKGROUND MUSIC///////////
 var lastSong = null;
     var selection = null;
     var playlist = ["Background Music 1.mp3", "Background Music 2.mp3", "Background Music 3.mp3", "Background Music 4.mp3"]; // List of songs
@@ -18,6 +18,17 @@ var lastSong = null;
     player.play(); // Start song
 /////////////////////////////////////////
 
+/////////////////TIMER/////////////
+var timeElapsed = 0;
+var myTimer = setInterval(function(){
+    timeElapsed += 1;
+    document.getElementById("timer").innerText = timeElapsed;
+    score = timeElapsed;
+}, 1000);
+
+
+///////////////////////////////
+
 
 
 
@@ -35,12 +46,15 @@ var bugCount = 0;
 
 var setHeight = false;
 
+var gameOver = false;
+
 var highscore = JSON.parse(localStorage.getItem("highscore"));
 if (typeof(highscore) == "number") {
     //nothing
 } else {
     highscore = 0;
 }
+document.getElementById("highscore").innerHTML = highscore;
 
 console.log(highscore);
 
@@ -59,16 +73,12 @@ var bugLocation = bug.style.left;
 var mikeCollide = {
     right: mike.getBoundingClientRect().right,
     left: mike.getBoundingClientRect().left,
-    top: mike.getBoundingClientRect().top,
-    bottom: mike.getBoundingClientRect().bottom,
 };
 
 //bugs colliders
 var bugCollide = {
     right: bug.getBoundingClientRect().right,
     left: bug.getBoundingClientRect().left,
-    top: bug.getBoundingClientRect().top,
-    bottom: bug.getBoundingClientRect().bottom,
 };
 
 
@@ -84,22 +94,24 @@ var isJumping = false;
 
 function jump()
 {
-    if (isJumping == false) {
-        if (setHeight == true) {
-            return;
-        } else {
-            isJumping = true;
-            $("#Mike").animate({ marginTop: "-=150px" }, "slow");
+    if (gameOver == false) {
+        if (isJumping == false) {
+            if (setHeight == true) {
+                return;
+            } else {
+                isJumping = true;
+                $("#Mike").animate({ marginTop: "-=150px" }, "slow");
+                    setTimeout(function () {
+                        if (setHeight == true) {
+                            return;
+                        }
+                    $("#Mike").animate({ marginTop: "+=150px" }, "slow");
+                    }, 500);
+                }
                 setTimeout(function () {
-                    if (setHeight == true) {
-                        return;
-                    }
-                $("#Mike").animate({ marginTop: "+=150px" }, "slow");
-                }, 500);
+                    isJumping = false;
+                }, 1100);
             }
-            setTimeout(function () {
-                isJumping = false;
-            }, 1100);
         }   
     }
 
@@ -108,7 +120,7 @@ function jump()
 setInterval(collisionCheck, 50);
 
 //calls bug move every millisecond
-setInterval(bugMove, 1);
+var bugTime = setInterval(bugMove, 1);
 
 //this make the bug move
 function bugMove() {
@@ -120,8 +132,6 @@ function bugMove() {
     bugCollide = {
         left: bug.getBoundingClientRect().left,
         right: bug.getBoundingClientRect().right,
-        top: bug.getBoundingClientRect().top,
-        bottom: bug.getBoundingClientRect().bottom,
     };
     //when bug gets to end of game
     if (bugCollide.left <= gameEdge) {
@@ -130,6 +140,8 @@ function bugMove() {
     }
 }
 
+var mySound = new Audio("Game Over 2.mp3")
+
 //checks if there is a collision
 function collisionCheck() {
     if (bugCollide.left <= mikeCollide.right && bugCollide.right >= mikeCollide.left && isJumping == false) {
@@ -137,9 +149,13 @@ function collisionCheck() {
     } else {
         isColliding = false;
     }
-    //call function endGame on collision
+    //call function reset on collision
     if (isColliding == true) {
-        endGame();
+        mySound.play();
+        clearInterval(myTimer);
+        clearInterval(bugTime);
+        gameOver = true;
+        document.getElementById("restartDiv").style.display = "block";
     }
 }
 
@@ -152,8 +168,6 @@ function addBug() {
     bugCollide = {
         left: bug.getBoundingClientRect().left,
         right: bug.getBoundingClientRect().right,
-        top: bug.getBoundingClientRect().top,
-        bottom: bug.getBoundingClientRect().bottom,
     };
     bug = document.getElementById("bug");
     //bug.style.left = (-1 * bugLocation) + "px";
@@ -168,12 +182,17 @@ function addBug() {
 }
 
 //if you collide
-function endGame() {
+function reset() {
     console.log("You Died");
     //highscore
     if (score > highscore) {
-    JSON.stringify(localStorage.setItem("highscore", score));
-    highscore = JSON.parse(localStorage.getItem("highscore"));
-    console.log(highscore);
+        JSON.stringify(localStorage.setItem("highscore", score));
+        highscore = JSON.parse(localStorage.getItem("highscore"));
+        document.getElementById("highscore").innerHTML = highscore;
     }
+    score = 0;
+    speed = startSpeed;
+    bug.remove();
+    location.reload();
 }
+
