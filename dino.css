@@ -6,10 +6,10 @@ body {
 }
 
 h1 {
-    font-size: 4vw;
+    font-size: 3,5vw;
 }
 p {
-    font-size: 2vw;
+    font-size: 1.5vw;
 }
 
 #gameDiv {
@@ -20,6 +20,28 @@ p {
     background-color: white;
     margin: auto;
 }
+
+#restartDiv {
+    width: 800px;
+    height: 250px;
+    background-color: rgba(100, 100, 100, .4);
+    margin: auto;
+    position: relative;
+    margin-top: -250px;
+    display: none;
+}
+
+#restartDiv:hover {
+    background-color: rgba(50, 50, 50, .5);
+}
+
+#restartDiv img{
+    padding: 75px 0;
+    height: 100px;
+    width: 100px;
+    margin-left: -80px;
+}
+
 #Mike {
     width: 50px;
     height: 50px;
